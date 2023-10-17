@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UserController : MonoBehaviour
 {
+    [Header("Camera Settings")]
     private Camera cam;
+    public float MaxZoom, MinZoom, currZoom = 5, zoomSensitivity;
+    public float moveSpeed = 5.0f;
+
+    [Header("Graph Settings")]
     private Vector2 m_Position = Vector2.zero;
     private Graph graph;
     public GameObject VerticesPrefab, EdgePrefab;
@@ -13,7 +19,12 @@ public class UserController : MonoBehaviour
     public Vertices selectedVertices;
     public Edges TempEdge;
     public LineRenderer EdgeRenderer;
+    public TMP_InputField WeightInputTextField;
 
+    private void Awake()
+    {
+        WeightInputTextField = FindObjectOfType<WeightInputField>().GetComponent<TMP_InputField>();
+    }
     void Start()
     {
         cam = Camera.main;
@@ -22,11 +33,13 @@ public class UserController : MonoBehaviour
 
     void Update()
     {
+        handleCameraZoom();
+        handleCameraMovement();
         m_Position = Input.mousePosition;
         m_Position = cam.ScreenToWorldPoint(m_Position);
+        
 
-
-        if(Input.GetMouseButtonDown(1) && selectedVertices == null)
+        if (Input.GetMouseButtonDown(1) && selectedVertices == null)
         {
             handlePlacement();
         }
@@ -41,6 +54,25 @@ public class UserController : MonoBehaviour
             EdgeRenderer.SetPosition(1,m_Position);
         }
     }
+    private void handleCameraZoom()
+    {
+        if(cam != null)
+        {
+            currZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity * Time.deltaTime;
+            currZoom = Mathf.Clamp(currZoom, MinZoom, MaxZoom);
+            cam.orthographicSize = currZoom;
+        }
+    }
+    private void handleCameraMovement()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        float currX = cam.transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+        float currY = cam.transform.position.y + verticalInput * moveSpeed * Time.deltaTime;
+
+        cam.transform.position = new Vector3(currX,currY,-10);  
+    }
     private void handlePlacement()
     {
         GameObject spawnedObject = Instantiate(VerticesPrefab, m_Position, Quaternion.identity);
@@ -50,7 +82,7 @@ public class UserController : MonoBehaviour
         if (verticesIndex == 0)
         {
             graph.Source_vertices = spawnedObject.GetComponent<Vertices>();
-            graph.Source_vertices.GetComponent<SpriteRenderer>().color = Color.blue;
+            graph.Source_vertices.GetComponent<SpriteRenderer>().color = Color.cyan;
         }
         else
         {
@@ -64,13 +96,14 @@ public class UserController : MonoBehaviour
 
         verticesIndex++;
     }
-
     public void SpawnEdge(Vector2 startPos)
     {
         GameObject tempEdge = Instantiate(EdgePrefab);
         TempEdge = tempEdge.GetComponent<Edges>();
         EdgeRenderer = TempEdge.GetComponent<LineRenderer>();
         TempEdge.GetComponent<LineRenderer>().SetPosition(0, startPos);
+
+        WeightInputTextField.text = Random.Range(1,51).ToString();
     }
 }
 

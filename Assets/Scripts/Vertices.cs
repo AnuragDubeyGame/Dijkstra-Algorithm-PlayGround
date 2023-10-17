@@ -16,6 +16,7 @@ public class Vertices : MonoBehaviour
 
     public List<Vertices> connectedVertices = new List<Vertices>();
     public TextMeshProUGUI IndexTextField;
+    public TextMeshProUGUI CalculatedDistanceTextField;
 
     public void setIndex(uint verticesIndex)
     {
