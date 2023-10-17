@@ -61,6 +61,7 @@ public class Vertices : MonoBehaviour
         controller.EdgeRenderer = null;
         controller.TempEdge = null;
         controller.selectedVertices = null;
+        controller.SetRandomWeight();
     }
 
     private void OnMouseUp()

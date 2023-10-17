@@ -102,8 +102,10 @@ public class UserController : MonoBehaviour
         TempEdge = tempEdge.GetComponent<Edges>();
         EdgeRenderer = TempEdge.GetComponent<LineRenderer>();
         TempEdge.GetComponent<LineRenderer>().SetPosition(0, startPos);
-
-        WeightInputTextField.text = Random.Range(1,51).ToString();
+    }
+    public void SetRandomWeight()
+    {
+        WeightInputTextField.text = Random.Range(1, 51).ToString();
     }
 }
 
