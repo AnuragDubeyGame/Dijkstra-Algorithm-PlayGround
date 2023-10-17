@@ -49,11 +49,17 @@ public class UserController : MonoBehaviour
         graph.verticesList.Add(spawnedObject.GetComponent<Vertices>());
         if (verticesIndex == 0)
         {
-           graph.Source_vertices = spawnedObject.GetComponent<Vertices>();
+            graph.Source_vertices = spawnedObject.GetComponent<Vertices>();
+            graph.Source_vertices.GetComponent<SpriteRenderer>().color = Color.blue;
         }
         else
         {
-           graph.Destination_vertices = spawnedObject.GetComponent<Vertices>();
+            if(graph.Destination_vertices != null)
+            {
+                graph.Destination_vertices.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            graph.Destination_vertices = spawnedObject.GetComponent<Vertices>();
+            graph.Destination_vertices.GetComponent<SpriteRenderer>().color = Color.yellow;
         }
 
         verticesIndex++;

@@ -29,7 +29,7 @@ public class Graph : MonoBehaviour
         return true;
     }
 
-    void CoreFunction(Vertices src, Edges edge)
+    void Relaxation(Vertices src, Edges edge)
     {
 
         var calculatedDistance = src.Distance + edge.Weight;
@@ -76,7 +76,7 @@ public class Graph : MonoBehaviour
             {
                 if (!edge.Vertex_D.explored)
                 {
-                    CoreFunction(Source_vertices, edge);
+                    Relaxation(Source_vertices, edge);
                 }
             }
             Source_vertices = FindNextLeastValuedVertex();
