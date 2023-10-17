@@ -1,6 +1,6 @@
 # Dijkstra Algorithm Playground in Unity
 
-Welcome to the Dijkstra Algorithm Playground in Unity! This project is designed to help you visualize and experiment with the famous Dijkstra's algorithm for finding the shortest path in a graph. Please note that this project is intended for educational purposes and experimentation. It may not be perfect, lacks documentation, and might have limited controls. 
+Welcome to the Dijkstra Algorithm Playground in Unity! This project is a work in progress designed to help you experiment with Dijkstra's algorithm for finding the shortest path in a graph. Please note that it is currently under development and not yet a fully-fledged visualization tool. It is intended for educational purposes and experimentation. As a work in progress, it may not be perfect, lacks documentation, and might have limited controls.
 
 
 
